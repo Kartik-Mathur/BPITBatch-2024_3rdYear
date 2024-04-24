@@ -37,34 +37,12 @@ void printLL(node* head) {
 	cout << "NULL\n";
 }
 
-void breakCycle(node*head, node* f) {
-	node* temp = head;
-	while (temp->next != f) temp = temp->next;
-
-	// Head se lekar cycle start wala distance = x
-	// f se lekar cycle start wala distance = y
-	// x == y, therefore we can do the steps as mentioned below
-	node*s = head;
-	while (s != f) {
-		temp = f;
-		f = f->next;
-		s = s->next;
-	}
-	// now break the cycle when s and f meet each other
-	temp->next = NULL;
-}
-
 bool isCycle(node* head) {
 	node* s = head, *f = head;
 	while (f and f->next) {
 		f = f->next->next;
 		s = s->next;
-		if (f == s) {
-			// Once the fast and slow meet, then we can start the algo
-			// to break the cycle
-			breakCycle(head, f);
-			return true;
-		}
+		if (f == s) return true;
 	}
 	return false;
 }
@@ -81,12 +59,8 @@ int main() {
 	insertAtEnd(head, tail, 6);
 	insertAtEnd(head, tail, 7);
 	insertAtEnd(head, tail, 8);
-	insertAtEnd(head, tail, 9);
-	insertAtEnd(head, tail, 10);
-	insertAtEnd(head, tail, 11);
-	insertAtEnd(head, tail, 12);
 
-	tail->next = head->next->next->next->next;
+	tail->next = head->next->next;
 	if (isCycle(head)) {
 		cout << "Cycle hai\n";
 	}
@@ -94,7 +68,6 @@ int main() {
 		cout << "Cycle nahi hai\n";
 	}
 
-	printLL(head);
 
 
 	return 0;
