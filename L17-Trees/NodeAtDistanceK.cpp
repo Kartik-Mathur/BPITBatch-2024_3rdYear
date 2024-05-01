@@ -36,19 +36,18 @@ public:
 			findSubtreeNodesK(root->right, 0, kd, ans);
 			return d + 1;
 		}
-		else {
-			d = solve(root->right, target, k, ans);
-			if (d != -1) { // if rightSubtree mei target present hai
-				if (d + 1 == k) {
-					ans.push_back(root->val);
-					return -1;
-				}
+
+		d = solve(root->right, target, k, ans);
+		if (d != -1) { // if rightSubtree mei target present hai
+			if (d + 1 == k) {
+				ans.push_back(root->val);
+				return -1;
 			}
 			int kd = k - (d + 2);
 			findSubtreeNodesK(root->left, 0, kd, ans);
 			return d + 1;
 		}
-
+		return -1;
 	}
 
 	vector<int> distanceK(TreeNode* root, TreeNode* target, int k) {
